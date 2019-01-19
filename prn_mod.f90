@@ -3,10 +3,12 @@ module prn
 implicit none
 
 !rp: real precision ip:integer precision
-integer,parameter :: rp=kind(1.0)
-integer,parameter :: ip=kind(1)
+integer, parameter :: rp=kind(1.0)
+integer, parameter :: ip=kind(1)
 !a, c and m can be arbitrarily adjusted
-integer(ip),parameter :: a=1741 ,c=2731,m=12906
+integer(ip), parameter :: a = 1741, c = 2731, m = 12906
+!m_sch and m_sch are similar variables to m and a, but used in Schrage's algorithm
+integer(ip), parameter :: m_sch = 12906, a_sch = 1741, r = 2836, q = int(m_sch/a_sch, ip)
 
 contains
 
@@ -22,15 +24,23 @@ function linear_congr(j)
 end function linear_congr
 
 
-!Similar to linear_congr but returns numbers in the interval [0, 1)
-function cong01(j)
+!Schrage's algorithm. This function receives and returns one integer.
+function gnpa(idum)
     
-implicit none
-integer(ip),intent(inout)::j
-real(rp)::cong01                            
+    implicit none
 
-cong01 = real(mod(a*j+c,m),rp)/real(m,rp)
+    integer(ip), intent(inout) :: idum
+    integer(ip) :: gnpa
+    integer(ip) :: k, d
     
-end function cong01
+    k = int(idum/q, ip)
+    d = a_sch*(idum-k*q) - r*k
+    if(d<0)then
+        gnpa = d + m_sch
+    else
+        gnpa = d
+    end if
+    
+end function gnpa
     
 end module prn
