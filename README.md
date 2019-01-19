@@ -7,8 +7,9 @@ This is a generator of pseudo-random numbers using a linear congruential algorit
 The program prn_congr receives one number (seed) and generates "m" pseudorandom numbers calculated with a linear congruential algorithm. These numbers will be put into raw_prn.dat .
 
 
-The program prandom_points receives one number (seed) and generates "m" pseudorandom numbers calculated with a linear congruential algorithm. These numbers will be divided by "m", so that they are in the `[0, 1)` interval. After that, a file called points.data contains points (x, y) made by these pseudo-random numbers in that interval.
+The program prandom_points receives one number (seed) and generates "m" pseudorandom numbers calculated with a linear congruential algorithm. These numbers will be divided by "m", so that they are in the `[0, 1)` interval. After that, a file called points.data contains points (x, y) made by these pseudo-random numbers in that interval. To use this program, "m" must be even. If you wanted to use this programs with Schrage's algorithm, then "m" must be uneven.
 
+The program schrage receives one number (seed) and generates "m-1" pseudorandom numbers calculated with Schrage's algorithm.
 
 You can change the seed when the program executes.
 You can change the linear parameters of the algorithm in prn_mod.f90 .
